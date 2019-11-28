@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:54 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/27 16:21:11 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/28 16:46:32 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,20 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2);
-int		ft_strchr(const char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		get_next_line(int fd, char **line);
-int		get_line(char **get, char **line, int c);
-char	*ft_strdup(const char *s1);
+typedef struct		s_read
+{
+	int				eof;
+}					t_read;
+
+size_t				ft_strlen(const char *s);
+size_t				ft_strlen_new(const char *s);
+char				*ft_strjoin(char *s1, char *s2);
+int					ft_strchr(const char *s, int c);
+char				*ft_substr(char *s, unsigned int start, size_t len);
+int					get_next_line(int fd, char **line);
+int					get_line(char **get, char **line, int c);
+char				*ft_strdup(const char *s1);
+size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
+int					ft_strrchr(const char *s, int c);
 
 #endif

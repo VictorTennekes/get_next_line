@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.c                                    :+:    :+:            */
+/*   get_next_line_mine.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/28 16:36:54 by vtenneke      ########   odam.nl         */
+/*   Created: 2019/11/28 16:38:00 by vtenneke       #+#    #+#                */
+/*   Updated: 2019/11/28 16:56:10 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,20 @@
 ** -1 : An error happened
 */
 
-int		get_line(char **res, char **line, int c)
+int		get_line(char **res, char **line, t_read *read_data)
 {
 	char	*tmp;
 
-	*line = ft_substr(*res, 0, ft_strchr(*res, c) - ((c == '\0') ? -1 : +1));
-	if (c == '\0')
+	*line = ft_substr(*res, 0, ft_strchr(*res, read_data->eof)
+		- ((read_data->eof == '\0') ? -1 : 1));
+	if (read_data->eof == '\0')
 	{
 		free(*res);
 		*res = NULL;
 		return (0);
 	}
-	tmp = ft_substr(*res, ft_strchr(*res, c),
-		ft_strrchr(*res, '\0') - ft_strchr(*res, c));
+	tmp = ft_substr(*res, ft_strchr(*res, read_data->eof),
+		ft_strrchr(*res, '\0') - ft_strchr(*res, read_data->eof));
 	free(*res);
 	*res = tmp;
 	return (1);
@@ -43,7 +44,9 @@ int		get_next_line(int fd, char **line)
 	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
 	size_t		readc;
+	t_read		read_data;
 
+	read_data.eof = '\0';
 	if (!res)
 	{
 		res = (char*)malloc(sizeof(char));
@@ -61,7 +64,6 @@ int		get_next_line(int fd, char **line)
 		res = tmp;
 	}
 	if (ft_strchr(res, '\n') == 0)
-		return (get_line(&res, line, '\n'));
-	else
-		return (get_line(&res, line, '\0'));
+		read_data.eof = '\n';
+	return (get_line(&res, line, &read_data));
 }
