@@ -5,65 +5,49 @@
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/28 16:38:00 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/28 16:56:10 by vtenneke      ########   odam.nl         */
+/*   Created: 2019/11/29 12:50:36 by vtenneke       #+#    #+#                */
+/*   Updated: 2019/11/29 13:01:19 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-/*
-** 1 : A line has been read
-** 0 : EOF has been reached
-** -1 : An error happened
-*/
-
-int		get_line(char **res, char **line, t_read *read_data)
+t_file	*get_file_data(t_file *data, int fd_in)
 {
-	char	*tmp;
+	t_file			*file;
 
-	*line = ft_substr(*res, 0, ft_strchr(*res, read_data->eof)
-		- ((read_data->eof == '\0') ? -1 : 1));
-	if (read_data->eof == '\0')
+	file = (t_file*)malloc(sizeof(t_file));
+	while (data->next)
 	{
-		free(*res);
-		*res = NULL;
-		return (0);
+		if (data->fd == fd_in)
+			return (data);
+		data = data->next;
 	}
-	tmp = ft_substr(*res, ft_strchr(*res, read_data->eof),
-		ft_strrchr(*res, '\0') - ft_strchr(*res, read_data->eof));
-	free(*res);
-	*res = tmp;
-	return (1);
+	if (data->fd == fd_in)
+		return (data);
+	data->next = file;
+	file->readc = 0;
+	file->fd = fd_in;
+	file->next = NULL;
+	return (file);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*res;
-	char		*tmp;
-	char		buf[BUFFER_SIZE + 1];
-	size_t		readc;
-	t_read		read_data;
+	static t_file	data;
+	t_file			*file_data;
 
-	read_data.eof = '\0';
-	if (!res)
+	file_data = get_file_data(&data, fd);
+	if (!file_data->res)
 	{
-		res = (char*)malloc(sizeof(char));
-		res[0] = '\0';
+		file_data->res = (char*)malloc(sizeof(char));
+		file_data->res[0] = '\0';
 	}
 	if (read(fd, 0, 0) == -1)
 		return (-1);
-	readc = 1;
-	while (readc && !ft_strchr(res, '\n'))
-	{
-		readc = read(fd, buf, BUFFER_SIZE);
-		buf[readc] = '\0';
-		tmp = ft_strjoin(res, buf);
-		free(res);
-		res = tmp;
-	}
-	if (ft_strchr(res, '\n') == 0)
-		read_data.eof = '\n';
-	return (get_line(&res, line, &read_data));
+	get_line(file_data);
+	if (readc)
+		return (get_line(file_data, line, '\n'));
+	else
+		return (get_line(file_data, line, '\0'));
 }

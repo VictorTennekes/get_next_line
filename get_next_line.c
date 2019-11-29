@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/29 10:06:42 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/29 14:12:20 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 ** 0 : EOF has been reached
 ** -1 : An error happened
 */
+
+int		check_fd(t_read *data)
+{
+	while (data->next)
+	{
+		if (data->content == data->fd)
+			return (data);
+	}
+	ft_lstadd_back(data, data->fd);
+}
 
 int		get_line(char **res, char **line, int c)
 {
@@ -43,7 +53,12 @@ int		get_next_line(int fd, char **line)
 	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
 	size_t		readc;
+	t_read		data;
 
+	data.fd =  fd;
+	check_fd(&data);
+	if (!line)
+		return (-1);
 	if (!res)
 	{
 		res = (char*)malloc(sizeof(char));
