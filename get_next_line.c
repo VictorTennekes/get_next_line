@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/28 16:36:54 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/29 10:06:42 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int		get_next_line(int fd, char **line)
 	while (readc && !ft_strchr(res, '\n'))
 	{
 		readc = read(fd, buf, BUFFER_SIZE);
-		buf[readc] = '\0';
+		buf[readc] = 0;
 		tmp = ft_strjoin(res, buf);
 		free(res);
 		res = tmp;
 	}
-	if (ft_strchr(res, '\n') == 0)
+	if (readc)
 		return (get_line(&res, line, '\n'));
 	else
 		return (get_line(&res, line, '\0'));
