@@ -6,42 +6,12 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:39 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/02 09:34:49 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/02 16:15:18 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <errno.h>
-#include <stdio.h>
-
-size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	int	i;
-
-	if (!(src))
-		return (0);
-	i = 0;
-	while (src[i] && i < (int)dstsize - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	if (dstsize)
-		dst[i] = '\0';
-	while (src[i] != '\0')
-		i++;
-	return (i);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t len;
-
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
-}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -106,7 +76,7 @@ int		ft_strchr(const char *s, int c)
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	char	*res;
+	char	*sub;
 	size_t	i;
 
 	if (!s)
@@ -116,12 +86,12 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		i++;
 	if (i < start)
 		return (ft_strdup(""));
-	res = (char*)malloc(sizeof(char) *
+	sub = (char*)malloc(sizeof(char) *
 		((i - start < len) ? i - start : len) + 1);
-	if (!res)
+	if (!sub)
 		return (NULL);
-	ft_strlcpy(res, s + start, ((i - start < len) ? i - start : len) + 1);
-	return (res);
+	ft_strlcpy(sub, s + start, ((i - start < len) ? i - start : len) + 1);
+	return (sub);
 }
 
 char	*ft_strdup(const char *s1)

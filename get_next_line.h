@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:54 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/02 10:30:35 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/02 16:14:19 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@ typedef struct		s_file
 	struct s_file	*next;
 }					t_file;
 
-size_t				ft_strlen(const char *s);
-size_t				ft_strlen_new(const char *s);
+int					get_next_line(int fd, char **line);
+int					get_line(char **res, char **line, int c);
+size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char				*ft_strjoin(char *s1, char *s2);
+int					ft_strrchr(const char *s, int c);
 int					ft_strchr(const char *s, int c);
 char				*ft_substr(char *s, unsigned int start, size_t len);
-int					get_next_line(int fd, char **line);
-int					get_line(char **get, char **line, int c);
 char				*ft_strdup(const char *s1);
-size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
-int					ft_strrchr(const char *s, int c);
 
 #endif

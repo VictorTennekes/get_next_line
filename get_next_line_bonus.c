@@ -6,12 +6,30 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/02 16:09:57 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/02 16:15:34 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	int	i;
+
+	if (!(src))
+		return (0);
+	i = 0;
+	while (src[i] && i < (int)dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (dstsize)
+		dst[i] = '\0';
+	while (src[i] != '\0')
+		i++;
+	return (i);
+}
 
 int		get_line(char **res, char **line, int c)
 {
