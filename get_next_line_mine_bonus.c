@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_mine.c                               :+:    :+:            */
+/*   get_next_line_mine_bonus.c                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/29 12:50:36 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/29 13:01:19 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/02 15:57:16 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 t_file	*get_file_data(t_file *data, int fd_in)
 {
