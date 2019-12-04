@@ -6,13 +6,13 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/02 16:15:34 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/04 10:22:37 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	int	i;
 
@@ -51,29 +51,29 @@ int		get_line(char **res, char **line, int c)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*res;
+	static char	*res[MAX_INT];
 	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
-	size_t		readc;
+	int			readc;
 
-	if (!res)
+	if (!res[fd])
 	{
-		res = (char*)malloc(sizeof(char));
-		res[0] = '\0';
+		res[fd] = (char*)malloc(sizeof(char));
+		res[fd][0] = '\0';
 	}
-	if (read(fd, 0, 0) == -1)
+	if (read(fd, buf, BUFFER_SIZE) == -1)
 		return (-1);
 	readc = 1;
-	while (readc && !ft_strchr(res, '\n'))
+	while (readc && !ft_strchr(res[fd], '\n'))
 	{
 		readc = read(fd, buf, BUFFER_SIZE);
 		buf[readc] = 0;
-		tmp = ft_strjoin(res, buf);
-		free(res);
-		res = tmp;
+		tmp = ft_strjoin(res[fd], buf);
+		free(res[fd]);
+		res[fd] = tmp;
 	}
 	if (readc)
-		return (get_line(&res, line, '\n'));
+		return (get_line(&res[fd], line, '\n'));
 	else
-		return (get_line(&res, line, '\0'));
+		return (get_line(&res[fd], line, '\0'));
 }
