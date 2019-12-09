@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:54 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/04 10:20:34 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/04 11:20:11 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-
-typedef struct		s_file
-{
-	char			*res;
-	int				readc;
-	int				fd;
-	struct s_file	*next;
-}					t_file;
 
 int					get_next_line(int fd, char **line);
 int					get_line(char **res, char **line, int c);

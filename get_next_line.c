@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/04 10:19:38 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/09 09:36:27 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		get_line(char **res, char **line, int c)
 {
 	char	*tmp;
 
-	*line = ft_substr(*res, 0, ft_strchr(*res, c) - ((c == '\0') ? -1 : +1));
+	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
 	if (c == '\0')
 	{
 		free(*res);
@@ -56,13 +56,10 @@ int		get_next_line(int fd, char **line)
 	char		buf[BUFFER_SIZE + 1];
 	size_t		readc;
 
-	if (!res)
-	{
-		res = (char*)malloc(sizeof(char));
-		res[0] = '\0';
-	}
-	if (read(fd, 0, 0) == -1)
+	if (BUFFER_SIZE < 0 || !line || read(fd, 0, 0) == -1)
 		return (-1);
+	if (!res)
+		res = ft_strdup("");
 	readc = 1;
 	while (readc && !ft_strchr(res, '\n'))
 	{

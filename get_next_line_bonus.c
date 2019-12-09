@@ -6,13 +6,13 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/04 10:22:37 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/09 09:35:29 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int		ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	int	i;
 
@@ -35,7 +35,7 @@ int		get_line(char **res, char **line, int c)
 {
 	char	*tmp;
 
-	*line = ft_substr(*res, 0, ft_strchr(*res, c) - ((c == '\0') ? -1 : +1));
+	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
 	if (c == '\0')
 	{
 		free(*res);
@@ -51,18 +51,15 @@ int		get_line(char **res, char **line, int c)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*res[MAX_INT];
+	static char	*res[1024];
 	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
-	int			readc;
+	size_t		readc;
 
-	if (!res[fd])
-	{
-		res[fd] = (char*)malloc(sizeof(char));
-		res[fd][0] = '\0';
-	}
-	if (read(fd, buf, BUFFER_SIZE) == -1)
+	if (BUFFER_SIZE < 0 || read(fd, 0, 0) == -1)
 		return (-1);
+	if (!res[fd])
+		res[fd] = ft_strdup("");
 	readc = 1;
 	while (readc && !ft_strchr(res[fd], '\n'))
 	{
