@@ -36,8 +36,6 @@ int		get_line(char **res, char **line, int c)
 {
 	char	*tmp;
 
-	if (line)
-		free(*line);
 	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
 	if (c == '\0')
 	{
@@ -57,7 +55,7 @@ int		get_next_line(int fd, char **line)
 	static char	*res;
 	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
-	size_t		readc;
+	ssize_t		readc;
 
 	if (BUFFER_SIZE < 0 || !line || read(fd, 0, 0) == -1)
 		return (-1);
@@ -67,6 +65,8 @@ int		get_next_line(int fd, char **line)
 	while (readc && !ft_strchr(res, '\n'))
 	{
 		readc = read(fd, buf, BUFFER_SIZE);
+		if (readc == -1)
+			return (-1);
 		buf[readc] = 0;
 		tmp = ft_strjoin(res, buf);
 		free(res);

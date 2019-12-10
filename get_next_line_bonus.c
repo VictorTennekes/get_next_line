@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/09 09:35:29 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/10 17:55:00 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		get_next_line(int fd, char **line)
 	static char	*res[1024];
 	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
-	size_t		readc;
+	ssize_t		readc;
 
 	if (BUFFER_SIZE < 0 || read(fd, 0, 0) == -1)
 		return (-1);
@@ -64,6 +64,8 @@ int		get_next_line(int fd, char **line)
 	while (readc && !ft_strchr(res[fd], '\n'))
 	{
 		readc = read(fd, buf, BUFFER_SIZE);
+		if (readc == -1)
+			return (-1);
 		buf[readc] = 0;
 		tmp = ft_strjoin(res[fd], buf);
 		free(res[fd]);
