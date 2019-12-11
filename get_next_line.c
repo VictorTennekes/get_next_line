@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/10 10:27:12 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/11 10:59:37 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int		get_line(char **res, char **line, int c)
 	char	*tmp;
 
 	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
+	if (!*line)
+		return (-1);
+	if (!*line)
+		return (-1);
 	if (c == '\0')
 	{
 		free(*res);
@@ -45,6 +49,8 @@ int		get_line(char **res, char **line, int c)
 	}
 	tmp = ft_substr(*res, ft_strchr(*res, c),
 		ft_strrchr(*res, '\0') - ft_strchr(*res, c));
+	if (!tmp)
+		return (-1);
 	free(*res);
 	*res = tmp;
 	return (1);
@@ -69,11 +75,10 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		buf[readc] = 0;
 		tmp = ft_strjoin(res, buf);
+		if (!tmp)
+			return (-1);
 		free(res);
 		res = tmp;
 	}
-	if (readc)
-		return (get_line(&res, line, '\n'));
-	else
-		return (get_line(&res, line, '\0'));
+	return (get_line(&res, line, ((readc) ? '\n' : '\0')));
 }
