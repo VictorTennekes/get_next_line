@@ -39,8 +39,6 @@ int		get_line(char **res, char **line, int c)
 	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
 	if (!*line)
 		return (-1);
-	if (!*line)
-		return (-1);
 	if (c == '\0')
 	{
 		free(*res);
