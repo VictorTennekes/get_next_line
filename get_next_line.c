@@ -6,12 +6,11 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/11 10:59:37 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/18 09:10:18 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
