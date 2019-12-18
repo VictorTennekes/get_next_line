@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:54 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/09 12:09:32 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/18 09:49:21 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
+# endif
+# ifndef INT_MAX
+#  define INT_MAX 2147483647
 # endif
 
 # include <unistd.h>

@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/11 11:00:43 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/12/18 09:49:46 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		get_line(char **res, char **line, int c)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*res[1024];
+	static char	*res[INT_MAX];
 	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
 	ssize_t		readc;
