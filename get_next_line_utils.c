@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 10:07:39 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/12/02 16:15:18 by vtenneke      ########   odam.nl         */
+/*   Updated: 2020/01/23 10:51:02 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		ft_strrchr(const char *s, int c)
 	int		i;
 
 	i = 0;
+	if (!s)
+		return (1);
 	while (s[i])
 		i++;
 	if (!c)
