@@ -5,7 +5,7 @@
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
+/*   Created: 2019/11/27 10:07:26 by vtenneke      #+#    #+#                 */
 /*   Updated: 2019/12/18 09:49:46 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ int		get_line(char **res, char **line, int c)
 {
 	char	*tmp;
 
-	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
+	*line = ft_substr_gnl(*res, 0, ft_strchr_gnl(*res, c) + ((c == '\0') ? 1 : -1));
 	if (!*line)
 		return (-1);
 	if (c == '\0')
@@ -44,8 +44,8 @@ int		get_line(char **res, char **line, int c)
 		*res = NULL;
 		return (0);
 	}
-	tmp = ft_substr(*res, ft_strchr(*res, c),
-		ft_strrchr(*res, '\0') - ft_strchr(*res, c));
+	tmp = ft_substr_gnl(*res, ft_strchr_gnl(*res, c),
+		ft_strrchr_gnl(*res, '\0') - ft_strchr_gnl(*res, c));
 	if (!tmp)
 		return (-1);
 	free(*res);
@@ -65,13 +65,13 @@ int		get_next_line(int fd, char **line)
 	if (!res[fd])
 		res[fd] = ft_strdup("");
 	readc = 1;
-	while (readc && !ft_strchr(res[fd], '\n'))
+	while (readc && !ft_strchr_gnl(res[fd], '\n'))
 	{
 		readc = read(fd, buf, BUFFER_SIZE);
 		if (readc == -1)
 			return (-1);
 		buf[readc] = 0;
-		tmp = ft_strjoin(res[fd], buf);
+		tmp = ft_strjoin_gnl(res[fd], buf);
 		if (!tmp)
 			return (-1);
 		free(res[fd]);

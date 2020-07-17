@@ -5,7 +5,7 @@
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/27 10:07:39 by vtenneke       #+#    #+#                */
+/*   Created: 2019/11/27 10:07:39 by vtenneke      #+#    #+#                 */
 /*   Updated: 2020/01/23 10:51:02 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
@@ -13,7 +13,7 @@
 #include "get_next_line.h"
 #include <errno.h>
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*res;
 	int		l1;
@@ -22,8 +22,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	l1 = ft_strchr(s1, '\0');
-	l2 = ft_strchr(s2, '\0');
+	l1 = ft_strchr_gnl(s1, '\0');
+	l2 = ft_strchr_gnl(s2, '\0');
 	res = (char*)malloc(sizeof(char) * (l1 + l2 + 1));
 	if (!res)
 		return (NULL);
@@ -40,7 +40,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (res);
 }
 
-int		ft_strrchr(const char *s, int c)
+int		ft_strrchr_gnl(const char *s, int c)
 {
 	int		i;
 
@@ -60,7 +60,7 @@ int		ft_strrchr(const char *s, int c)
 	return (-1);
 }
 
-int		ft_strchr(const char *s, int c)
+int		ft_strchr_gnl(const char *s, int c)
 {
 	int i;
 
