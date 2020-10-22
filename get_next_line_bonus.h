@@ -20,16 +20,20 @@
 #  define INT_MAX 2147483647
 # endif
 
+# define GNL_SUCCES 1
+# define GNL_EOF 0
+# define GNL_ERROR -1
+
 # include <unistd.h>
 # include <stdlib.h>
 
 int					get_next_line(int fd, char **line);
 int					get_line(char **res, char **line, int c);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char				*ft_strjoin_gnl(char *s1, char *s2);
-int					ft_strrchr_gnl(const char *s, int c);
-int					ft_strchr_gnl(const char *s, int c);
-char				*ft_substr_gnl(char *s, unsigned int start, size_t len);
+char				*ft_strjoin(char *s1, char *s2);
+int					ft_strrchr(const char *s, int c);
+int					ft_strchr(const char *s, int c);
+char				*ft_substr(char *s, unsigned int start, size_t len);
 char				*ft_strdup(const char *s1);
 
 #endif

@@ -13,7 +13,7 @@
 #include "get_next_line_bonus.h"
 #include <errno.h>
 
-char	*ft_strjoin_gnl(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*res;
 	int		l1;
@@ -22,8 +22,8 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	l1 = ft_strchr_gnl(s1, '\0');
-	l2 = ft_strchr_gnl(s2, '\0');
+	l1 = ft_strchr(s1, '\0');
+	l2 = ft_strchr(s2, '\0');
 	res = (char*)malloc(sizeof(char) * (l1 + l2 + 1));
 	if (!res)
 		return (NULL);
@@ -37,10 +37,11 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 			res[i + l1] = s2[i];
 		i++;
 	}
+	free(s1);
 	return (res);
 }
 
-int		ft_strrchr_gnl(const char *s, int c)
+int		ft_strrchr(const char *s, int c)
 {
 	int		i;
 
@@ -60,7 +61,7 @@ int		ft_strrchr_gnl(const char *s, int c)
 	return (-1);
 }
 
-int		ft_strchr_gnl(const char *s, int c)
+int		ft_strchr(const char *s, int c)
 {
 	int i;
 
@@ -76,7 +77,7 @@ int		ft_strchr_gnl(const char *s, int c)
 	return (0);
 }
 
-char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*res;
 	size_t	i;

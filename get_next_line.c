@@ -5,7 +5,7 @@
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/27 10:07:26 by vtenneke       #+#    #+#                */
+/*   Created: 2019/11/27 10:07:26 by vtenneke      #+#    #+#                 */
 /*   Updated: 2020/01/23 10:49:20 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
@@ -37,45 +37,47 @@ int		get_line(char **res, char **line, int c)
 
 	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
 	if (!*line)
-		return (-1);
+		return (GNL_ERROR);
 	if (c == '\0')
 	{
 		free(*res);
 		*res = NULL;
-		return (0);
+		return (GNL_EOF);
 	}
 	tmp = ft_substr(*res, ft_strchr(*res, c),
 		ft_strrchr(*res, '\0') - ft_strchr(*res, c));
 	if (!tmp)
-		return (-1);
+		return (GNL_ERROR);
 	free(*res);
 	*res = tmp;
-	return (1);
+	return (GNL_SUCCES);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*res;
-	char		*tmp;
+	static char	*res = NULL;
 	char		buf[BUFFER_SIZE + 1];
 	ssize_t		readc;
 
+	if (line)
+		*line = NULL;
 	if (BUFFER_SIZE < 0 || !line || read(fd, 0, 0) == -1)
-		return (-1);
-	if (!res)
+	{
+		free(res);
+		return (GNL_ERROR);
+	}
+	if (res == NULL)
 		res = ft_strdup("");
 	readc = 1;
 	while (readc && !ft_strchr(res, '\n'))
 	{
 		readc = read(fd, buf, BUFFER_SIZE);
 		if (readc == -1)
-			return (-1);
+			return (GNL_ERROR);
 		buf[readc] = 0;
-		tmp = ft_strjoin(res, buf);
-		if (!tmp)
-			return (-1);
-		free(res);
-		res = tmp;
+		res = ft_strjoin(res, buf);
+		if (!res)
+			return (GNL_ERROR);
 	}
 	return (get_line(&res, line, ((readc) ? '\n' : '\0')));
 }

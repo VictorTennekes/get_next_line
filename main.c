@@ -79,49 +79,71 @@
 // 	return (0);
 // }
 
-int		not_all_done(int *ret, int argc)
-{
-	int		i;
-	i = 0;
-	while (i + 1 < argc)
-	{
-		if (ret[i] != 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// int		not_all_done(int *ret, int argc)
+// {
+// 	int		i;
+// 	i = 0;
+// 	while (i + 1 < argc)
+// 	{
+// 		if (ret[i] != 0)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
-int		main(int argc, char **argv)
-{
-	int		i;
-	int		fd[argc - 1];
-	int		ret[argc - 1];
-	char	*line;
+// int		main(int argc, char **argv)
+// {
+// 	int		i;
+// 	int		fd[argc - 1];
+// 	int		ret[argc - 1];
+// 	char	*line;
 
-	line = NULL;
-	i = 0;
-	while (i + 1 < argc)
-	{
-		fd[i] = open(argv[i + 1], O_RDONLY);
-		ret[i] = 1;
-		i++;
-	}
-	while (not_all_done(ret, argc))
-	{
-		i = 0;
-		while (i + 1 < argc)
-		{
-			if (ret[i] != 0)
-			{
-				ret[i] = get_next_line(fd[i], &line);
-				printf("OUT _%d_%d_%s_\n", fd[i], ret[i], line);
-				if (!ret[i])
-					close(fd[i]);
-			}
-			i++;
-		}
-	}
-	free(line);
-	return (0);
+// 	line = NULL;
+// 	i = 0;
+// 	while (i + 1 < argc)
+// 	{
+// 		fd[i] = open(argv[i + 1], O_RDONLY);
+// 		ret[i] = 1;
+// 		i++;
+// 	}
+// 	while (not_all_done(ret, argc))
+// 	{
+// 		i = 0;
+// 		while (i + 1 < argc)
+// 		{
+// 			if (ret[i] != 0)
+// 			{
+// 				ret[i] = get_next_line(fd[i], &line);
+// 				printf("OUT _%d_%d_%s_\n", fd[i], ret[i], line);
+// 				if (!ret[i])
+// 					close(fd[i]);
+// 			}
+// 			i++;
+// 		}
+// 	}
+// 	free(line);
+// 	return (0);
+// }
+
+int main(void)
+{
+    const int fd = open("example_text.txt", O_RDONLY);
+    char *line = NULL;
+    int ret;
+
+
+    ret = get_next_line(fd, &line);
+    free(line);
+    ret = get_next_line(fd, &line);
+    free(line);
+    ret = get_next_line(fd, &line);
+    free(line);
+    ret = get_next_line(fd, &line);
+    free(line);
+    close(fd);
+    ret = get_next_line(fd, &line); // memory is still allocated in the static buffer here
+    // free(line);
+    sleep(100);
+    // https://github.com/VictorTennekes/get_next_line/blob/e66f0f40b8760e49fc179a6f27632c807dcbe732/get_next_line.c#L63
 }

@@ -35,7 +35,7 @@ int		get_line(char **res, char **line, int c)
 {
 	char	*tmp;
 
-	*line = ft_substr_gnl(*res, 0, ft_strchr_gnl(*res, c) + ((c == '\0') ? 1 : -1));
+	*line = ft_substr(*res, 0, ft_strchr(*res, c) + ((c == '\0') ? 1 : -1));
 	if (!*line)
 		return (-1);
 	if (c == '\0')
@@ -44,8 +44,8 @@ int		get_line(char **res, char **line, int c)
 		*res = NULL;
 		return (0);
 	}
-	tmp = ft_substr_gnl(*res, ft_strchr_gnl(*res, c),
-		ft_strrchr_gnl(*res, '\0') - ft_strchr_gnl(*res, c));
+	tmp = ft_substr(*res, ft_strchr(*res, c),
+		ft_strrchr(*res, '\0') - ft_strchr(*res, c));
 	if (!tmp)
 		return (-1);
 	free(*res);
@@ -56,26 +56,28 @@ int		get_line(char **res, char **line, int c)
 int		get_next_line(int fd, char **line)
 {
 	static char	*res[INT_MAX];
-	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
 	ssize_t		readc;
 
-	if (BUFFER_SIZE < 0 || read(fd, 0, 0) == -1)
-		return (-1);
+	if (line)
+		*line = NULL;
+	if (BUFFER_SIZE < 0 || !line || read(fd, 0, 0) == -1)
+	{
+		free(res[fd]);
+		return (GNL_ERROR);
+	}
 	if (!res[fd])
 		res[fd] = ft_strdup("");
 	readc = 1;
-	while (readc && !ft_strchr_gnl(res[fd], '\n'))
+	while (readc && !ft_strchr(res[fd], '\n'))
 	{
 		readc = read(fd, buf, BUFFER_SIZE);
 		if (readc == -1)
 			return (-1);
 		buf[readc] = 0;
-		tmp = ft_strjoin_gnl(res[fd], buf);
-		if (!tmp)
+		res[fd] = ft_strjoin(res[fd], buf);
+		if (!res[fd])
 			return (-1);
-		free(res[fd]);
-		res[fd] = tmp;
 	}
 	return (get_line(&res[fd], line, ((readc) ? '\n' : '\0')));
 }

@@ -5,7 +5,7 @@
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/27 10:07:54 by vtenneke       #+#    #+#                */
+/*   Created: 2019/11/27 10:07:54 by vtenneke      #+#    #+#                 */
 /*   Updated: 2019/12/04 11:20:11 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
@@ -16,6 +16,10 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif
+
+# define GNL_SUCCES 1
+# define GNL_EOF 0
+# define GNL_ERROR -1
 
 # include <unistd.h>
 # include <stdlib.h>
